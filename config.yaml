@@ -1,0 +1,21 @@
+- name: cat
+  command: "/bin/cat"
+  autorestart: TRUE
+  numprocs: 12
+  stopsignal: TERM
+  exitcodes:
+  - 0
+  - 1
+  - 2
+  umask: 0o222
+  environement:
+    ENV1: ENV1
+    ENV2: ENV2
+- name: cat
+  command: "/bin/cat"
+  stdout_logfile: ""
+  redirect_stderr: true
+  exitcodes:
+  - 0
+  - 1
+  - 2
