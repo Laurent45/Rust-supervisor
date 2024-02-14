@@ -6,5 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-serde_yaml = "0.9"
+# Serialize/Deserialize core api
+serde = { version = "1.0.196", features = ["derive"] }
+# Serialize/Deserialize api to yaml files
+serde_yaml = "0.9.31"
+# Runtime formating python(v2) expression
+dynfmt = { version = "0.1.5", default-features = false, features = ["python"] }
