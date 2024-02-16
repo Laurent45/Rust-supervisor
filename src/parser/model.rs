@@ -7,8 +7,8 @@ use std::collections::HashMap;
 #[derive(Deserialize, Debug)]
 #[allow(dead_code)] // TODO: Remove
 pub struct Program {
-    name: String,
-    command: String,
+    pub name: String,
+    pub command: String,
     #[serde(default = "Default::numprocs")]
     numprocs: u8, // Note that if numprocs > 1, the process_name expression must include. %(process_num)s
     #[serde(default = "Default::autostart")]
@@ -55,4 +55,13 @@ pub enum AutoRestart {
 pub enum Signal {
     TERM,
     KILL,
+}
+
+impl Program {
+    pub fn get_value(&self, field_name: &str) -> Option<&String> {
+        match field_name {
+            "name" => Some(&self.name),
+            _ => None,
+        }
+    }
 }
