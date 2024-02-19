@@ -2,7 +2,7 @@
   command: "/bin/cat"
   autorestart: TRUE
   numprocs: 12
-  stopsignal: TERM
+  stopsignal: 15
   exitcodes:
   - 0
   - 1
