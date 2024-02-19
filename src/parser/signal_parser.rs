@@ -1,4 +1,4 @@
-use crate::parser::model::Signal;
+use crate::models::Signal;
 
 use serde::de::Error;
 use serde::Deserialize;

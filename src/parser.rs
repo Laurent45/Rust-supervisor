@@ -1,14 +1,25 @@
-mod custom;
-mod default;
-mod model;
+mod signal_parser;
 
-pub use model::Program;
-
+use crate::Program;
 use std::fs;
 
-pub fn parse_config_file(file: &str) -> Result<Vec<Program>, String> {
-    let content = fs::read_to_string(file)
-        .map_err(|err| format!("Impossible to read config file -> {err}"))?;
-    serde_yaml::from_str::<Vec<Program>>(&content)
-        .map_err(|err| format!("Error while parsing config file -> {err}"))
+/// Take a yaml file path and parse the content to vector of Program
+///
+/// Try to open the file given on parameter and parse the content to
+/// a vector of Program. An error may be return if file is not found or
+/// if file a not parseable
+///
+/// # Exemples
+///
+/// ```
+/// let programs = parse_config_file("config.yaml");
+/// ```
+///
+/// [`Program`]: ./models/program.rs
+pub fn parse_config_file(file_path: &str) -> Result<Vec<Program>, String> {
+    match fs::read_to_string(file_path) {
+        Ok(file_content) => serde_yaml::from_str(&file_content)
+            .map_err(|err| format!("Error while parsing config file -> {err:?}",)),
+        Err(err) => Err(format!("Impossible to read config file -> {err:?}")),
+    }
 }
