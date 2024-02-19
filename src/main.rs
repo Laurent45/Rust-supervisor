@@ -1,22 +1,24 @@
+#![warn(missing_docs)]
+
+//! TODO: Add documentation
+
 mod models;
 mod parser;
 
 use models::Program;
+use parser::parse_config_file;
 use std::env;
-use std::error::Error;
-use std::fs;
 
-fn main() -> Result<(), Box<dyn Error>> {
+/// Entry point
+///
+/// TODO: Add documentation
+fn main() -> Result<(), String> {
     let args: Vec<String> = env::args().skip(1).collect();
     if args.len() != 1 {
-        return Err(Box::<dyn Error>::from("Usage: taskmaster <config_file>"));
+        return Err("Usage: taskmaster <config_file>".into());
     }
 
-    let file_content = fs::read_to_string(&args[0])
-        .map_err(|err| format!("Impossible to read config file -> {err}"))?;
-
-    let programs: Vec<Program> = serde_yaml::from_str(&file_content)
-        .map_err(|err| format!("Error while parsing config file -> {err}"))?;
+    let programs = parse_config_file(&args[0])?;
 
     println!("{programs:#?}");
 
